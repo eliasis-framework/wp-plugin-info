@@ -44,47 +44,68 @@ Get plugin information:
 use Eliasis\Module\Module;
 
 $Info = Module::WP_Plugin-Info()->instance('Info');
-
+```
+```php
 $name = $Info->get('name', 'plugin-slug');
-
+```
+```php
 $slug = $Info->get('slug', 'plugin-slug');
-
+```
+```php
 $version = $Info->get('version', 'plugin-slug');
-
+```
+```php
 $author = $Info->get('author', 'plugin-slug');
-
+```
+```php
 $author_profile = $Info->get('author_profile', 'plugin-slug');
-
+```
+```php
 $contributors = $Info->get('contributors', 'plugin-slug');
-
+```
+```php
 $requires = $Info->get('requires', 'plugin-slug');
-
+```
+```php
 $tested = $Info->get('tested', 'plugin-slug');
-
+```
+```php
 $compatibility = $Info->get('compatibility', 'plugin-slug');
-
+```
+```php
 $rating = $Info->get('rating', 'plugin-slug');
-
+```
+```php
 $ratings = $Info->get('ratings', 'plugin-slug');
-
+```
+```php
 $num_ratings = $Info->get('num_ratings', 'plugin-slug');
-
+```
+```php
 $support_threads = $Info->get('support_threads', 'plugin-slug');
-
+```
+```php
 $support_threads_resolved = $Info->get('support_threads_resolved', 'plugin-slug');
-
+```
+```php
 $downloaded = $Info->get('downloaded', 'plugin-slug');
-
+```
+```php
 $last_updated = $Info->get('last_updated', 'plugin-slug');
-
+```
+```php
 $added = $Info->get('added', 'plugin-slug');
-
+```
+```php
 $homepage = $Info->get('homepage', 'plugin-slug');
-
+```
+```php
 $download_link = $Info->get('download_link', 'plugin-slug');
-
+```
+```php
 $tags = $Info->get('tags', 'plugin-slug');
-
+```
+```php
 $donate_link = $Info->get('donate_link', 'plugin-slug');
 ```
 
