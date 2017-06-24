@@ -11,8 +11,7 @@
 
 namespace Eliasis\Modules\WP_Plugin_Info\Controller\Launcher;
 
-use Josantonius\Hook\Hook,
-    Eliasis\Module\Module,
+use Eliasis\Module\Module,
     Eliasis\Controller\Controller;
     
 /**
