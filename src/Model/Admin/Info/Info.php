@@ -11,7 +11,6 @@
 
 namespace Eliasis\Modules\WP_Plugin_Info\Model\Admin\Info;
 
-
 use Josantonius\Json\Json,
     Eliasis\Module\Module,
     Eliasis\Model\Model;

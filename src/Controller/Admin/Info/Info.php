@@ -11,7 +11,6 @@
 
 namespace Eliasis\Modules\WP_Plugin_Info\Controller\Admin\Info;
 
-
 use Eliasis\Module\Module,
     Eliasis\Controller\Controller;
     
