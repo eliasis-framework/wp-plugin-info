@@ -1,0 +1,13 @@
+{
+   "id": "WP_Plugin_Info",
+   "name": "WP Plugin Info",
+   "version": "1.0.0",
+   "description": "Get and save plugin information from WordPress API to be consumed by other modules.",
+   "state": "active",
+   "category": "wp-plugin-component",
+   "uri": "https://github.com/Josantonius/WP_Plugin-Info.git",
+   "author": "Josantonius",
+   "author-uri": "https://josantonius.com/",
+   "license": "GPL-2.0+",
+   "hooks-controller": "Launcher"
+}

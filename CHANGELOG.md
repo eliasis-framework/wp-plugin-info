@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.0.1 - 2017-09-06
+
+* Added `wp-plugin-info/wp_plugin-info.jsond` file.
+
+* Deleted `wp-plugin-info/wp_plugin-info.php` file.
+
 ## 1.0.0 - 2017-06-13
 
 * Added `App\Modules\WP_Plugin_Info\Controller\Launcher\Launcher` class.
