@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Plugin Info · Eliasis module for WordPress plugins
+ * WP Plugin Info · Eliasis plugin for WordPress plugins
  * 
  * @author     Josantonius - hello@josantonius.com
  * @copyright  Copyright (c) 2017

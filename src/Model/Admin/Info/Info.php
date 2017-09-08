@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Plugin Info · Eliasis module for WordPress plugins
+ * WP Plugin Info · Eliasis plugin for WordPress plugins
  * 
  * @author     Josantonius - hello@josantonius.com
  * @copyright  Copyright (c) 2017
@@ -9,10 +9,10 @@
  * @since      1.0.0
  */
 
-namespace Eliasis\Modules\WP_Plugin_Info\Model\Admin\Info;
+namespace Eliasis\Plugins\WP_Plugin_Info\Model\Admin\Info;
 
 use Josantonius\Json\Json,
-    Eliasis\Module\Module,
+    Eliasis\Complement\Type\Plugin\Plugin,
     Eliasis\Model\Model;
     
 /**
@@ -31,7 +31,7 @@ class Info extends Model {
      */
     public function getPluginsInfo() {
 
-        $file = Module::WP_Plugin_Info()->get('file', 'plugins');
+        $file = Plugin::WP_Plugin_Info()->get('file', 'plugins');
 
         return Json::fileToArray($file);
     }
@@ -45,7 +45,7 @@ class Info extends Model {
      */
     public function setPluginsInfo($plugins) {
         
-        $file = Module::WP_Plugin_Info()->get('file', 'plugins');
+        $file = Plugin::WP_Plugin_Info()->get('file', 'plugins');
 
         Json::arrayToFile($plugins, $file);
     }

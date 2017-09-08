@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Plugin Info · Eliasis module for WordPress plugins
+ * WP Plugin Info · Eliasis plugin for WordPress plugins
  * 
  * @author     Josantonius - hello@josantonius.com
  * @copyright  Copyright (c) 2017
@@ -10,9 +10,9 @@
  */
 
 use Eliasis\App\App,
-    Eliasis\Module\Module;
+    Eliasis\Complement\Type\Plugin\Plugin;
 
-$ROOT = Module::WP_Plugin_Info()->get('path', 'root');
+$ROOT = Plugin::WP_Plugin_Info()->get('path', 'root');
 
 return [
 

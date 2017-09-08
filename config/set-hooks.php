@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Plugin Info · Eliasis module for WordPress plugins
+ * WP Plugin Info · Eliasis plugin for WordPress plugins
  * 
  * @author     Josantonius - hello@josantonius.com
  * @copyright  Copyright (c) 2017
@@ -9,9 +9,9 @@
  * @since      1.0.0
  */
 
-use Eliasis\Module\Module;
+use Eliasis\Complement\Type\Plugin\Plugin;
 
-$namespace = Module::WP_Plugin_Info()->get('namespaces', 'controller');
+$namespace = Plugin::WP_Plugin_Info()->get('namespaces', 'controller');
 
 $class = $namespace . 'Launcher\Launcher';
 

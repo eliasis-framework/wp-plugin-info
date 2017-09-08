@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Plugin Info · Eliasis module for WordPress plugins
+ * WP Plugin Info · Eliasis plugin for WordPress plugins
  * 
  * @author     Josantonius - hello@josantonius.com
  * @copyright  Copyright (c) 2017
@@ -9,13 +9,13 @@
  * @since      1.0.0
  */
 
-namespace Eliasis\Modules\WP_Plugin_Info\Controller\Launcher;
+namespace Eliasis\Plugins\WP_Plugin_Info\Controller\Launcher;
 
-use Eliasis\Module\Module,
+use Eliasis\Complement\Type\Plugin\Plugin,
     Eliasis\Controller\Controller;
     
 /**
- * Module main controller.
+ * Plugin main controller.
  *
  * @since 1.0.0
  */
@@ -30,7 +30,7 @@ class Launcher extends Controller {
      */
     public function init() {
 
-        if (Module::WP_Plugin_Info()->get('state') === 'active') {
+        if (Plugin::WP_Plugin_Info()->get('state') === 'active') {
 
             if (is_admin()) {
 
@@ -72,7 +72,7 @@ class Launcher extends Controller {
 
             add_action($hook, function() {
 
-                Module::WP_Plugin_Info()->instance('Info')->getPluginsInfo();
+                Plugin::WP_Plugin_Info()->instance('Info')->getPluginsInfo();
             });
         }
     }

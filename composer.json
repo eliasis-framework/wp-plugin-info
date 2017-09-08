@@ -1,8 +1,8 @@
 {
     "name":        "josantonius/wp_plugin-info",
-    "version":     "1.0.1",
+    "version":     "1.0.2",
     "description": "Get and save plugin information from WordPress API to be consumed by other modules.",
-    "type": "eliasis-module",
+    "type": "eliasis-plugin",
     "keywords": [
         "WordPress", 
         "Plugin", 
@@ -34,12 +34,12 @@
     },
     "require": {
         "php": "^5.3 || ^7.0",
-        "eliasis-framework/eliasis"    : "^1.1.0",
+        "eliasis-framework/eliasis"    : "^1.1.1",
         "composer/installers"          : "^1.4.0"
     },
     "autoload": {
         "psr-4": {
-            "Eliasis\\Modules\\WP_Plugin_Info\\" : "src/"
+            "Eliasis\\Plugins\\WP_Plugin_Info\\" : "src/"
         }
     }
 }

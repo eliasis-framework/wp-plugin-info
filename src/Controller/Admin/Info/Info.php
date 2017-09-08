@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Plugin Info · Eliasis module for WordPress plugins
+ * WP Plugin Info · Eliasis plugin for WordPress plugins
  * 
  * @author     Josantonius - hello@josantonius.com
  * @copyright  Copyright (c) 2017
@@ -9,9 +9,9 @@
  * @since      1.0.0
  */
 
-namespace Eliasis\Modules\WP_Plugin_Info\Controller\Admin\Info;
+namespace Eliasis\Plugins\WP_Plugin_Info\Controller\Admin\Info;
 
-use Eliasis\Module\Module,
+use Eliasis\Complement\Type\Plugin\Plugin,
     Eliasis\Controller\Controller;
     
 /**
@@ -71,7 +71,7 @@ class Info extends Controller {
             'request' => serialize($args)
         ];
      
-        $url = Module::WP_Plugin_Info()->get('url', 'wp-api');
+        $url = Plugin::WP_Plugin_Info()->get('url', 'wp-api');
      
         $resp = wp_remote_post($url, ['body' => $request]);
 
@@ -138,7 +138,7 @@ class Info extends Controller {
 
         if (isset($this->plugin[$this->slug]['last-update'])) {
 
-            $interval = Module::WP_Plugin_Info()->get('interval');
+            $interval = Plugin::WP_Plugin_Info()->get('interval');
 
             $lastUpdate = $this->plugin[$this->slug]['last-update'];
 

@@ -1,7 +1,7 @@
 {
    "id": "WP_Plugin_Info",
    "name": "WP Plugin Info",
-   "version": "1.0.0",
+   "version": "1.0.2",
    "description": "Get and save plugin information from WordPress API to be consumed by other modules.",
    "state": "active",
    "category": "wp-plugin-component",
