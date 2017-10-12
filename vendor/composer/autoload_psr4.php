@@ -6,9 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-common/src', $vendorDir . '/phpdocumentor/type-resolver/src', $vendorDir . '/phpdocumentor/reflection-docblock/src'),
-    'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
-    'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
     'Josantonius\\Url\\' => array($vendorDir . '/josantonius/url/src/Url'),
     'Josantonius\\Json\\' => array($vendorDir . '/josantonius/json/src/Json'),
     'Josantonius\\Hook\\' => array($vendorDir . '/josantonius/hook/src/Hook'),
@@ -16,7 +13,5 @@ return array(
     'Eliasis\\Plugins\\WP_Plugin_Info\\' => array($baseDir . '/src'),
     'Eliasis\\Complement\\' => array($vendorDir . '/eliasis-framework/complement/src'),
     'Eliasis\\' => array($vendorDir . '/eliasis-framework/eliasis/src'),
-    'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
-    'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
     'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
 );
