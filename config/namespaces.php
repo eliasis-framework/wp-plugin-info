@@ -9,15 +9,10 @@
  * @since      1.0.0
  */
 
-$namespace = 'Eliasis\\Plugins\\';
-
-$module = 'WP_Plugin_Info\\Controller\\';
-
 return [
 
     'namespaces' => [
 
-        'controller'       => $namespace . $module,
-        'controller-admin' => $namespace . $module . 'Admin\\',
+        'controller' => 'Eliasis\\Plugins\\WP_Plugin_Info\\Controller\\',
     ],
 ];

@@ -1,6 +1,6 @@
 # WP Plugin Info · Eliasis module
 
-[![Latest Stable Version](https://poser.pugx.org/josantonius/wp_plugin-info/v/stable)](https://packagist.org/packages/josantonius/wp_plugin-info) [![Total Downloads](https://poser.pugx.org/josantonius/wp_plugin-info/downloads)](https://packagist.org/packages/josantonius/wp_plugin-info) [![Latest Unstable Version](https://poser.pugx.org/josantonius/wp_plugin-info/v/unstable)](https://packagist.org/packages/josantonius/wp_plugin-info) [![License](https://poser.pugx.org/josantonius/wp_plugin-info/license)](https://packagist.org/packages/josantonius/wp_plugin-info)
+[![Latest Stable Version](https://poser.pugx.org/josantonius/wp_plugin-info/v/stable)](https://packagist.org/packages/josantonius/wp_plugin-info) [![Total Downloads](https://poser.pugx.org/josantonius/wp_plugin-info/downloads)](https://packagist.org/packages/josantonius/wp_plugin-info) [![Latest Unstable Version](https://poser.pugx.org/josantonius/wp_plugin-info/v/unstable)](https://packagist.org/packages/josantonius/wp_plugin-info) [![License](https://poser.pugx.org/josantonius/wp_plugin-info/license)](https://packagist.org/packages/josantonius/wp_plugin-info) [![Travis](https://travis-ci.org/Josantonius/WP_Plugin-Info.svg)](https://travis-ci.org/Josantonius/WP_Plugin-Info)
 
 [Versión en español](README-ES.md)
 
@@ -11,19 +11,11 @@ Get and save plugin information from WordPress API to be consumed by other modul
 - [Installation](#installation)
 - [Requirements](#requirements)
 - [Usage](#usage)
+- [Tests](#tests)
+- [TODO](#-todo)
 - [Contribute](#contribute)
 - [License](#license)
 - [Copyright](#copyright)
-
----
-
-<p align="center"><strong>Take a look at the code</strong></p>
-
-<p align="center">
-  <a href="https://youtu.be/CW8nzBQHpn4" title="Take a look at the code">
-  	<img src="https://raw.githubusercontent.com/Josantonius/PHP-Algorithm/master/resources/youtube-thumbnail.jpg">
-  </a>
-</p>
 
 ---
 
@@ -43,7 +35,7 @@ Or you can also clone the complete repository with Git:
 
 ### Requirements
 
-This pluggin is supported by PHP versions 5.3 or higher and is compatible with HHVM versions 3.0 or higher.
+This pluggin is supported by PHP versions 5.6 or higher and is compatible with HHVM versions 3.0 or higher.
 
 ### Usage
 
@@ -51,73 +43,90 @@ Get plugin information:
 
 ```php
 <?php
-use Eliasis\Module\Module;
+use Eliasis\Complement\Type\Plugin\Plugin;
 
-$Info = Module::WP_Plugin-Info()->instance('Info');
+$Info = Plugin::WP_Plugin_Info()->instance('Info');
 ```
 ```php
-$name = $Info->get('name', 'plugin-slug');
+$name = $Info->get('name', 'plugin-slug'); //string
 ```
 ```php
-$slug = $Info->get('slug', 'plugin-slug');
+$slug = $Info->get('slug', 'plugin-slug'); //string
 ```
 ```php
-$version = $Info->get('version', 'plugin-slug');
+$version = $Info->get('version', 'plugin-slug'); //string
 ```
 ```php
-$author = $Info->get('author', 'plugin-slug');
+$author = $Info->get('author', 'plugin-slug'); //string
 ```
 ```php
-$author_profile = $Info->get('author_profile', 'plugin-slug');
+$author_profile = $Info->get('author_profile', 'plugin-slug'); //string
 ```
 ```php
-$contributors = $Info->get('contributors', 'plugin-slug');
+$contributors = $Info->get('contributors', 'plugin-slug'); //array
 ```
 ```php
-$requires = $Info->get('requires', 'plugin-slug');
+$requires = $Info->get('requires', 'plugin-slug'); //string
 ```
 ```php
-$tested = $Info->get('tested', 'plugin-slug');
+$tested = $Info->get('tested', 'plugin-slug'); //string
 ```
 ```php
-$compatibility = $Info->get('compatibility', 'plugin-slug');
+$compatibility = $Info->get('compatibility', 'plugin-slug'); //array
 ```
 ```php
-$rating = $Info->get('rating', 'plugin-slug');
+$rating = $Info->get('rating', 'plugin-slug'); //int
 ```
 ```php
-$ratings = $Info->get('ratings', 'plugin-slug');
+$ratings = $Info->get('ratings', 'plugin-slug'); //array
 ```
 ```php
-$num_ratings = $Info->get('num_ratings', 'plugin-slug');
+$num_ratings = $Info->get('num_ratings', 'plugin-slug'); //int
 ```
 ```php
-$support_threads = $Info->get('support_threads', 'plugin-slug');
+$support_threads = $Info->get('support_threads', 'plugin-slug'); //int
 ```
 ```php
-$support_threads_resolved = $Info->get('support_threads_resolved', 'plugin-slug');
+$support_threads_resolved = $Info->get('support_threads_resolved', 'plugin-slug'); //int
 ```
 ```php
-$downloaded = $Info->get('downloaded', 'plugin-slug');
+$downloaded = $Info->get('downloaded', 'plugin-slug'); //int
 ```
 ```php
-$last_updated = $Info->get('last_updated', 'plugin-slug');
+$last_updated = $Info->get('last_updated', 'plugin-slug'); //string
 ```
 ```php
-$added = $Info->get('added', 'plugin-slug');
+$added = $Info->get('added', 'plugin-slug'); //string
 ```
 ```php
-$homepage = $Info->get('homepage', 'plugin-slug');
+$homepage = $Info->get('homepage', 'plugin-slug'); //string
 ```
 ```php
-$download_link = $Info->get('download_link', 'plugin-slug');
+$download_link = $Info->get('download_link', 'plugin-slug'); //string
 ```
 ```php
-$tags = $Info->get('tags', 'plugin-slug');
+$tags = $Info->get('tags', 'plugin-slug'); //array
 ```
 ```php
-$donate_link = $Info->get('donate_link', 'plugin-slug');
+$donate_link = $Info->get('donate_link', 'plugin-slug'); //string
 ```
+
+### Tests 
+
+To run [tests](tests/Asset/Test) simply:
+
+    $ git clone https://github.com/Josantonius/WP_Plugin-Info.git
+    
+    $ cd WP_Plugin-Info
+
+    $ bash bin/install-wp-tests.sh wordpress_test root '' localhost latest
+
+    $ phpunit
+
+### ☑ TODO
+
+- [x] Create tests
+- [ ] Improve documentation
 
 ### Contribute
 1. Check for open issues or open a new issue to start a discussion around a bug or feature.
