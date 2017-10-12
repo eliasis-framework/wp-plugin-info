@@ -123,11 +123,11 @@ trait ComplementHandler {
 
                 $namespace = $this->complement['namespaces'][$namespace];
 
-                $class = $namespace . $class . '\\' . $class;
+                $_class = $namespace . $class . '\\' . $class;
 
-                if (class_exists($class)) {
+                if (class_exists($_class)) {
 
-                    return call_user_func([$class, 'getInstance']);
+                    return call_user_func([$_class, 'getInstance']);
                 }
             }
 

@@ -6,8 +6,6 @@
 
 * The repository was synchronized with `Travis CI` to implement continuous integration.
 
-* Type attributes were deleted from HTML tags. Since HTML5 doesn't longer necessary.
- 
 * Added `wp_plugin-info/src/bootstrap.php` file
 
 * Added `wp_plugin-info/tests/bootstrap.php` file.
