@@ -113,7 +113,7 @@ $donate_link = $Info->get('donate_link', 'plugin-slug'); //string
 
 ### Tests 
 
-To run [tests](tests/Asset/Test) simply:
+To run [tests](tests/WP_Plugin-Info/Test) simply:
 
     $ git clone https://github.com/Josantonius/WP_Plugin-Info.git
     
