@@ -1,6 +1,6 @@
 # WP Plugin Info · Eliasis plugin
 
-[![Latest Stable Version](https://poser.pugx.org/josantonius/wp-plugin-info/v/stable)](https://packagist.org/packages/josantonius/wp-plugin-info) [![Latest Unstable Version](https://poser.pugx.org/josantonius/wp-plugin-info/v/unstable)](https://packagist.org/packages/josantonius/wp-plugin-info) [![License](https://poser.pugx.org/josantonius/wp-plugin-info/license)](LICENSE) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/34d7488b266949019ee95d7980e1a93e)](https://www.codacy.com/app/Josantonius/wp-plugin-info?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Josantonius/wp-plugin-info&amp;utm_campaign=Badge_Grade) [![Total Downloads](https://poser.pugx.org/josantonius/wp-plugin-info/downloads)](https://packagist.org/packages/josantonius/wp-plugin-info) [![Travis](https://travis-ci.org/Josantonius/wp-plugin-info.svg)](https://travis-ci.org/Josantonius/wp-plugin-info) [![WP](https://img.shields.io/badge/WordPress-Standar-1abc9c.svg)](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/) [![CodeCov](https://codecov.io/gh/Josantonius/wp-plugin-info/branch/master/graph/badge.svg)](https://codecov.io/gh/Josantonius/wp-plugin-info)
+[![Latest Stable Version](https://poser.pugx.org/eliasis-framework/wp-plugin-info/v/stable)](https://packagist.org/packages/eliasis-framework/wp-plugin-info) [![Latest Unstable Version](https://poser.pugx.org/eliasis-framework/wp-plugin-info/v/unstable)](https://packagist.org/packages/eliasis-framework/wp-plugin-info) [![License](https://poser.pugx.org/eliasis-framework/wp-plugin-info/license)](LICENSE) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/34d7488b266949019ee95d7980e1a93e)](https://www.codacy.com/app/eliasis-framework/wp-plugin-info?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=eliasis-framework/wp-plugin-info&amp;utm_campaign=Badge_Grade) [![Total Downloads](https://poser.pugx.org/eliasis-framework/wp-plugin-info/downloads)](https://packagist.org/packages/eliasis-framework/wp-plugin-info) [![Travis](https://travis-ci.org/eliasis-framework/wp-plugin-info.svg)](https://travis-ci.org/eliasis-framework/wp-plugin-info) [![WP](https://img.shields.io/badge/WordPress-Standar-1abc9c.svg)](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/) [![CodeCov](https://codecov.io/gh/eliasis-framework/wp-plugin-info/branch/master/graph/badge.svg)](https://codecov.io/gh/eliasis-framework/wp-plugin-info)
 
 [Versión en español](README-ES.md)
 
@@ -30,15 +30,15 @@ La mejor forma de instalar esta extensión es a través de [Composer](http://get
 
 Para instalar **WP Plugin Info**, simplemente escribe:
 
-    $ composer require Josantonius/wp-plugin-info
+    $ composer require eliasis-framework/wp-plugin-info
 
 El comando anterior sólo instalará los archivos necesarios, si prefieres **descargar todo el código fuente** puedes utilizar:
 
-    $ composer require Josantonius/wp-plugin-info --prefer-source
+    $ composer require eliasis-framework/wp-plugin-info --prefer-source
 
 También puedes **clonar el repositorio** completo con Git:
 
-    $ git clone https://github.com/Josantonius/wp-plugin-info.git
+    $ git clone https://github.com/eliasis-framework/wp-plugin-info.git
 
 ## Métodos disponibles
 
@@ -233,7 +233,7 @@ $wp_plugin_info->get('donate_link', 'plugin-slug');
 
 Para ejecutar las [pruebas](tests) necesitarás [Composer](http://getcomposer.org/download/) y seguir los siguientes pasos:
 
-    $ git clone https://github.com/Josantonius/wp-plugin-info.git
+    $ git clone https://github.com/eliasis-framework/wp-plugin-info.git
     
     $ cd wp-plugin-info
 
@@ -265,7 +265,7 @@ Ejecutar todas las pruebas anteriores:
 ## Contribuir
 
 Si deseas colaborar, puedes echar un vistazo a la lista de
-[issues](https://github.com/Josantonius/wp-plugin-info/issues) o [tareas pendientes](#-tareas-pendientes).
+[issues](https://github.com/eliasis-framework/wp-plugin-info/issues) o [tareas pendientes](#-tareas-pendientes).
 
 **Pull requests**
 
@@ -276,10 +276,6 @@ Si deseas colaborar, puedes echar un vistazo a la lista de
 * Ejecuta las [pruebas](#tests).
 * Crea una nueva rama (**branch**), **commit**, **push** y envíame un
   [pull request](https://help.github.com/articles/using-pull-requests).
-
-## Repositorio
-
-La estructura de archivos de este repositorio se creó con [PHP-Skeleton](https://github.com/Josantonius/PHP-Skeleton).
 
 ## Licencia
 

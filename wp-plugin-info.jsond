@@ -8,9 +8,35 @@
    },
    "state": "active",
    "category": "wp-plugin-complement",
-   "url": "https://github.com/Josantonius/WP_Plugin-Info.git",
+   "url": "https://github.com/eliasis-framework/wp-plugin-info.git",
    "author": "Josantonius",
    "author-url": "https://josantonius.com/",
-   "license": "GPL-2.0+",
-   "hooks-controller": "Launcher"
+   "license": "MIT",
+   "hooks-controller": "Launcher",
+   "url-import": "https://raw.githubusercontent.com/eliasis-framework/wp-plugin-info/master/",
+   "installation-files": {
+      "wp-plugin-info": {
+         "0": "wp-plugin-info.jsond",
+         "1": "LICENSE",
+         "2": "composer.json",
+         "config": [
+            "add-paths.php",
+            "add-urls.php",
+            "files.php",
+            "namespaces.php",
+            "settings.php"
+         ],
+         "src": {
+            "controller": {
+               "0": "class-main.php"
+            },
+            "model": {
+               "0": "class-main.php"
+            },
+            "data": {
+               "0": "plugins.jsond"
+            }
+         }
+      }
+   }
 }
