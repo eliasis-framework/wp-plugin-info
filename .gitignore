@@ -2,7 +2,6 @@ phpunit.xml
 composer.phar
 composer.lock
 vendor/
-data/*.jsond
 composer-test.lock
 build/artifacts/
 artifacts/

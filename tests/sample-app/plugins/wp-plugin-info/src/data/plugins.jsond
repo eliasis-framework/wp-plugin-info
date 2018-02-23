@@ -14,7 +14,7 @@
         "num_ratings": 0,
         "support_threads": 0,
         "support_threads_resolved": 0,
-        "downloaded": 537,
+        "downloaded": 538,
         "last_updated": "2017-10-10 9:23am GMT",
         "added": "2017-06-27",
         "homepage": "https:\/\/wordpress.org\/plugins\/extensions-for-grifus\/",
@@ -28,9 +28,9 @@
         },
         "donate_link": "https:\/\/paypal.me\/Josantonius",
         "contributors": [],
-        "last-update": 1519313562
+        "last-update": 1519357826
     },
     "unknown": {
-        "last-update": 1519355991
+        "last-update": 1519357827
     }
 }
