@@ -1,6 +1,6 @@
-# WP Plugin Info · Eliasis module
+# WP Plugin Info · Eliasis plugin
 
-[![Latest Stable Version](https://poser.pugx.org/josantonius/wp_plugin-info/v/stable)](https://packagist.org/packages/josantonius/wp_plugin-info) [![Total Downloads](https://poser.pugx.org/josantonius/wp_plugin-info/downloads)](https://packagist.org/packages/josantonius/wp_plugin-info) [![Latest Unstable Version](https://poser.pugx.org/josantonius/wp_plugin-info/v/unstable)](https://packagist.org/packages/josantonius/wp_plugin-info) [![License](https://poser.pugx.org/josantonius/wp_plugin-info/license)](https://packagist.org/packages/josantonius/wp_plugin-info) [![Travis](https://travis-ci.org/Josantonius/WP_Plugin-Info.svg)](https://travis-ci.org/Josantonius/WP_Plugin-Info)
+[![Latest Stable Version](https://poser.pugx.org/josantonius/wp-plugin-info/v/stable)](https://packagist.org/packages/josantonius/wp-plugin-info) [![Latest Unstable Version](https://poser.pugx.org/josantonius/wp-plugin-info/v/unstable)](https://packagist.org/packages/josantonius/wp-plugin-info) [![License](https://poser.pugx.org/josantonius/wp-plugin-info/license)](LICENSE) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/26d441f10c114cfdaf6c15ce74e8f316)](https://www.codacy.com/app/Josantonius/wp-plugin-info?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Josantonius/wp-plugin-info&amp;utm_campaign=Badge_Grade) [![Total Downloads](https://poser.pugx.org/josantonius/wp-plugin-info/downloads)](https://packagist.org/packages/josantonius/wp-plugin-info) [![Travis](https://travis-ci.org/Josantonius/wp-plugin-info.svg)](https://travis-ci.org/Josantonius/wp-plugin-info) [![WP](https://img.shields.io/badge/WordPress-Standar-1abc9c.svg)](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/) [![CodeCov](https://codecov.io/gh/Josantonius/wp-plugin-info/branch/master/graph/badge.svg)](https://codecov.io/gh/Josantonius/wp-plugin-info)
 
 [Versión en español](README-ES.md)
 
@@ -8,8 +8,10 @@ Get and save plugin information from WordPress API to be consumed by other modul
 
 ---
 
-- [Installation](#installation)
 - [Requirements](#requirements)
+- [Installation](#installation)
+- [Available Methods](#available-methods)
+- [Quick Start](#quick-start)
 - [Usage](#usage)
 - [Tests](#tests)
 - [TODO](#-todo)
@@ -19,131 +21,272 @@ Get and save plugin information from WordPress API to be consumed by other modul
 
 ---
 
-### Installation
+## Requirements
 
-Install plugin module from [Composer](http://getcomposer.org/download/). In the root folder of plugin run:
+This library is supported by **PHP versions 5.6** or higher and is compatible with **HHVM versions 3.0** or higher.
 
-    $ composer require Josantonius/WP_Plugin-Info
+## Installation
 
-The previous command will only install the necessary files, if you prefer to download the entire source code (including tests, vendor folder, sass files, docs...) you can use:
+The preferred way to install this extension is through [Composer](http://getcomposer.org/download/).
 
-    $ composer require Josantonius/WP_Plugin-Info --prefer-source
+To install **WP Plugin Info**, simply:
 
-Or you can also clone the complete repository with Git:
+    $ composer require Josantonius/wp-plugin-info
 
-	$ git clone https://github.com/Josantonius/WP_Plugin-Info.git
+The previous command will only install the necessary files, if you prefer to **download the entire source code** you can use:
 
-### Requirements
+    $ composer require Josantonius/wp-plugin-info --prefer-source
 
-This pluggin is supported by PHP versions 5.6 or higher and is compatible with HHVM versions 3.0 or higher.
+You can also **clone the complete repository** with Git:
 
-### Usage
+    $ git clone https://github.com/Josantonius/wp-plugin-info.git
 
-Get plugin information:
+## Available Methods
+
+Available methods in this library:
+
+### - Get plugin information:
 
 ```php
-<?php
-use Eliasis\Complement\Type\Plugin\Plugin;
-
-$Info = Plugin::WP_Plugin_Info()->instance('Info');
-```
-```php
-$name = $Info->get('name', 'plugin-slug'); //string
-```
-```php
-$slug = $Info->get('slug', 'plugin-slug'); //string
-```
-```php
-$version = $Info->get('version', 'plugin-slug'); //string
-```
-```php
-$author = $Info->get('author', 'plugin-slug'); //string
-```
-```php
-$author_profile = $Info->get('author_profile', 'plugin-slug'); //string
-```
-```php
-$contributors = $Info->get('contributors', 'plugin-slug'); //array
-```
-```php
-$requires = $Info->get('requires', 'plugin-slug'); //string
-```
-```php
-$tested = $Info->get('tested', 'plugin-slug'); //string
-```
-```php
-$compatibility = $Info->get('compatibility', 'plugin-slug'); //array
-```
-```php
-$rating = $Info->get('rating', 'plugin-slug'); //int
-```
-```php
-$ratings = $Info->get('ratings', 'plugin-slug'); //array
-```
-```php
-$num_ratings = $Info->get('num_ratings', 'plugin-slug'); //int
-```
-```php
-$support_threads = $Info->get('support_threads', 'plugin-slug'); //int
-```
-```php
-$support_threads_resolved = $Info->get('support_threads_resolved', 'plugin-slug'); //int
-```
-```php
-$downloaded = $Info->get('downloaded', 'plugin-slug'); //int
-```
-```php
-$last_updated = $Info->get('last_updated', 'plugin-slug'); //string
-```
-```php
-$added = $Info->get('added', 'plugin-slug'); //string
-```
-```php
-$homepage = $Info->get('homepage', 'plugin-slug'); //string
-```
-```php
-$download_link = $Info->get('download_link', 'plugin-slug'); //string
-```
-```php
-$tags = $Info->get('tags', 'plugin-slug'); //array
-```
-```php
-$donate_link = $Info->get('donate_link', 'plugin-slug'); //string
+get($option, $slug);
 ```
 
-### Tests 
+| Atttribute | Description | Type | Required
+| --- | --- | --- | --- |
+| $option | Option to get. | string | Yes |
+| $slug | WordPress plugin slug. | string | Yes |
 
-To run [tests](tests/WP_Plugin-Info/Test) simply:
+**@return** (mixed) → Value or false.
 
-    $ git clone https://github.com/Josantonius/WP_Plugin-Info.git
+## Quick Start
+
+To use this library with **Composer**:
+
+```php
+use Eliasis\Complement\Type\Plugin;
+
+$wp_plugin_info = Plugin::WP_Plugin_Info()->getControllerInstance('Main');
+```
+
+## Usage
+
+### - Get plugin name:
+
+```php
+# [string]
+
+$wp_plugin_info->get('name', 'plugin-slug'); 
+```
+
+### - Get plugin version:
+
+```php
+# [string]
+
+$wp_plugin_info->get('version', 'plugin-slug');
+```
+
+### - Get plugin author:
+
+```php
+# [string]
+
+$author = $wp_plugin_info->get('author', 'plugin-slug');
+```
+
+### - Get plugin author profile:
+
+```php
+# [string]
+
+$wp_plugin_info->get('author_profile', 'plugin-slug');
+```
+
+### - Get plugin contributors:
+
+```php
+# [array]
+
+$wp_plugin_info->get('contributors', 'plugin-slug');
+```
+
+### - Get plugin requires:
+
+```php
+# [string]
+
+$wp_plugin_info->get('requires', 'plugin-slug');
+```
+
+### - Get plugin tested:
+
+```php
+# [string]
+
+$wp_plugin_info->get('tested', 'plugin-slug');
+```
+
+### - Get plugin compatibility:
+
+```php
+# [array]
+
+$wp_plugin_info->get('compatibility', 'plugin-slug');
+```
+
+### - Get plugin rating:
+
+```php
+# [int]
+
+$wp_plugin_info->get('rating', 'plugin-slug');
+```
+
+### - Get plugin ratings:
+
+```php
+# [array]
+
+$wp_plugin_info->get('ratings', 'plugin-slug');
+```
+
+### - Get plugin num ratings:
+
+```php
+# [int]
+
+$wp_plugin_info->get('num_ratings', 'plugin-slug');
+```
+
+### - Get plugin support threads:
+
+```php
+# [int]
+
+$wp_plugin_info->get('support_threads', 'plugin-slug');
+```
+
+### - Get plugin support threads resolved:
+
+```php
+# [int]
+
+$wp_plugin_info->get('support_threads_resolved', 'plugin-slug');
+```
+
+### - Get plugin downloaded:
+
+```php
+# [int]
+
+$wp_plugin_info->get('downloaded', 'plugin-slug');
+```
+
+### - Get plugin last updated:
+
+```php
+# [string]
+
+$wp_plugin_info->get('last_updated', 'plugin-slug');
+```
+
+### - Get plugin added:
+
+```php
+# [string]
+
+$wp_plugin_info->get('added', 'plugin-slug');
+```
+
+### - Get plugin homepage:
+
+```php
+# [string]
+
+$wp_plugin_info->get('homepage', 'plugin-slug');
+```
+
+### - Get plugin download link:
+
+```php
+# [string]
+
+$wp_plugin_info->get('download_link', 'plugin-slug');
+```
+
+### - Get plugin tags:
+
+```php
+# [array]
+
+$wp_plugin_info->get('tags', 'plugin-slug');
+```
+
+### - Get plugin donate link:
+
+```php
+# [string]
+
+$wp_plugin_info->get('donate_link', 'plugin-slug');
+```
+
+## Tests 
+
+To run [tests](tests) you just need [composer](http://getcomposer.org/download/) and to execute the following:
+
+    $ git clone https://github.com/Josantonius/wp-plugin-info.git
     
-    $ cd WP_Plugin-Info
+    $ cd wp-plugin-info
 
     $ bash bin/install-wp-tests.sh wordpress_test root '' localhost latest
 
-    $ phpunit
+    $ composer install
 
-### ☑ TODO
+Run unit tests with [PHPUnit](https://phpunit.de/):
 
-- [x] Create tests
-- [ ] Improve documentation
+    $ composer phpunit
 
-### Contribute
-1. Check for open issues or open a new issue to start a discussion around a bug or feature.
-1. Fork the repository on GitHub to start making your changes.
-1. Write one or more tests for the new feature or that expose the bug.
-1. Make code changes to implement the feature or fix the bug.
-1. Send a pull request to get your changes merged and published.
+Run [WordPress](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/) code standard tests with [PHPCS](https://github.com/squizlabs/PHP_CodeSniffer):
 
-This is intended for large and long-lived objects.
+    $ composer phpcs
 
-### License
+Run [PHP Mess Detector](https://phpmd.org/) tests to detect inconsistencies in code style:
 
-This project is licensed under **GPL-2.0+**. See the [LICENSE](LICENSE) file for more info.
+    $ composer phpmd
 
-### Copyright
+Run all previous tests:
 
-2017 Josantonius, [josantonius.com](https://josantonius.com/)
+    $ composer tests
+
+## ☑ TODO
+
+- [ ] Add new feature.
+- [ ] Improve tests.
+- [ ] Improve documentation.
+- [ ] Refactor code for disabled code style rules. See [phpmd.xml](phpmd.xml) and [.php_cs.dist](.php_cs.dist).
+
+## Contribute
+
+If you would like to help, please take a look at the list of
+[issues](https://github.com/Josantonius/wp-plugin-info/issues) or the [To Do](#-todo) checklist.
+
+**Pull requests**
+
+* [Fork and clone](https://help.github.com/articles/fork-a-repo).
+* Run the command `composer install` to install the dependencies.
+  This will also install the [dev dependencies](https://getcomposer.org/doc/03-cli.md#install).
+* Run the command `composer fix` to excute code standard fixers.
+* Run the [tests](#tests).
+* Create a **branch**, **commit**, **push** and send me a
+  [pull request](https://help.github.com/articles/using-pull-requests).
+
+## License
+
+This project is licensed under **GPL-2.0+ license**. See the [LICENSE](LICENSE) file for more info.
+
+## Copyright
+
+2017 - 2018 Josantonius, [josantonius.com](https://josantonius.com/)
 
 If you find it useful, let me know :wink:
 

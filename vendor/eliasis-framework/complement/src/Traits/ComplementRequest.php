@@ -2,279 +2,261 @@
 /**
  * PHP library for adding addition of complements for Eliasis Framework.
  *
- * @author     Josantonius - hello@josantonius.com
- * @copyright  Copyright (c) 2017
- * @license    https://opensource.org/licenses/MIT - The MIT License (MIT)
- * @link       https://github.com/Eliasis-Framework/Complement
- * @since      1.0.9
+ * @author    Josantonius <hello@josantonius.com>
+ * @copyright 2017 - 2018 (c) Josantonius - Eliasis Complement
+ * @license   https://opensource.org/licenses/MIT - The MIT License (MIT)
+ * @link      https://github.com/Eliasis-Framework/Complement
+ * @since     1.0.9
  */
-
 namespace Eliasis\Complement\Traits;
 
-use Eliasis\App\App,
-    Josantonius\Json\Json;
+use Eliasis\Framework\App;
 
 /**
  * Complement requests handler class.
- *
- * @since 1.0.9
  */
-trait ComplementRequest {
-                                                          
+trait ComplementRequest
+{
+    /**
+     * Request parameters.
+     *
+     * @var array
+     */
+    protected static $config;
+
     /**
      * HTTP request handler.
      *
-     * @since 1.0.9
+     * @param string $type → complement type
      *
-     * @param string $complementType → complement type
-     *
-     * @uses string App::id() → set application id
-     *
-     * @return void
+     * @uses \Eliasis\Framework\App::setCurrentID()
      */
-    public static function requestHandler($complementType) {
+    public static function requestHandler($type)
+    {
+        if (! self::validateRequest($type)) {
+            return false;
+        }
 
-        if (!isset($_GET['vue'],
-                   $_GET['app'],
-                   $_GET['external'], 
-                   $_GET['request'],
-                   $_GET['complement'])) { return; }
+        App::setCurrentID(self::$config['app']);
 
-        if ($_GET['complement'] !== $complementType) { return; }
+        self::loadRemoteComplements();
 
-        App::id(filter_var($_GET['app'], FILTER_SANITIZE_STRING));
-
-        self::_loadExternalComplements();
-        
-        switch ($_GET['request']) {
-
+        switch (self::$config['request']) {
             case 'load-complements':
-
-                self::_complementsLoadRequest();
-
+                self::complementsLoadRequest();
                 break;
-
             case 'change-state':
-
-                self::_changeStateRequest();
-
+                self::changeStateRequest();
                 break;
-
             case 'install':
-
-                self::_installRequest();
-
+                self::installRequest();
                 break;
-
+            case 'update':
+                self::installRequest(true);
+                break;
             case 'uninstall':
-
-                self::_uninstallRequest();
-
+                self::uninstallRequest();
                 break;
-
             default:
-
                 self::$errors[] = [
-
-                    'message' => 'Unknown request: ' . $_GET['request']
+                    'message' => 'Unknown request: ' . self::$config['request'],
                 ];
-
+                echo json_encode(['errors' => self::$errors]);
                 break;
         }
 
-        die;
+        if (empty(App::getOption('development-environment'))) {
+            die;
+        }
     }
-                                                                   
+
     /**
-     * Load external complements.
+     * Validate the request.
      *
-     * @since 1.0.9
+     * @param string $type → complement type
      *
-     * @uses array  Complement->$instances → complement instances
-     * @uses string App::$id               → application id
-     * @uses void   Complement::load()     → load complement configuration
-     * @uses array  Complement::$errors    → complement errors
-     *
-     * @return void
+     * @return bool
      */
-    private static function _loadExternalComplements() {
+    public static function validateRequest($type)
+    {
+        $hasValidParams = isset(
+            $_POST['id'],
+            $_POST['app'],
+            $_POST['remote'],
+            $_POST['request'],
+            $_POST['complement'],
+            $_POST['nonce'],
+            $_POST['filter'],
+            $_POST['sort'],
+            $_SESSION['efc'],
+            $_SERVER['HTTP_X_REQUESTED_WITH']
+        );
 
-        $complement = self::_getType();
-        
-        $external = json_decode($_GET['external'], true);
+        if (! $hasValidParams || ! self::sanitizeParams()) {
+            return false;
+        }
 
-        $complements = array_keys(self::$instances[App::$id][$complement]);
+        if (self::$config['complement'] !== $type) {
+            return false;
+        }
 
-        foreach ($external as $complement => $url) {
+        $isAjaxRequest = $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
 
-            if (!in_array($complement, $complements)) {
+        $isValidNonce = self::$config['nonce'] === $_SESSION['efc'];
 
-                if ($url = filter_var($url, FILTER_VALIDATE_URL)) {
-                
-                    self::load($url);
-                
-                } else {
+        if (! $isAjaxRequest || ! $isValidNonce) {
+            return false;
+        }
 
-                    self::$errors[] = [
+        return true;
+    }
 
-                        'message' => 'A valid url was not received: ' . $url
-                    ];
-                }
+    /**
+     * Sanitize request parameters.
+     *
+     * @since 1.1.0
+     *
+     * @return bool
+     */
+    public static function sanitizeParams()
+    {
+        self::$config['remote'] = [];
+
+        $remote = is_array($_POST['remote']) ? $_POST['remote'] : [];
+        foreach ($remote as $complement => $url) {
+            $url = filter_var($url, FILTER_VALIDATE_URL);
+            if ($url === false) {
+                return false;
+            }
+            self::$config['remote'][$complement] = $url;
+        }
+
+        $params = ['id', 'app', 'request', 'filter', 'sort', 'nonce', 'complement'];
+
+        foreach ($params as $param) {
+            $value = filter_var($_POST[$param], FILTER_SANITIZE_STRING);
+            if ($value === false) {
+                return false;
+            }
+            self::$config[$param] = $value;
+        }
+
+        return true;
+    }
+
+    /**
+     * Load remote complements.
+     *
+     * @uses \Eliasis\Complement\Complement->$instances
+     * @uses \Eliasis\Complement\Complement::load()
+     * @uses \Eliasis\Complement\Complement::$errors
+     */
+    private static function loadRemoteComplements()
+    {
+        $currentID = App::getCurrentID();
+        $complement = self::getType();
+        $remote = self::$config['remote'];
+
+        $complements = array_keys(self::$instances[$currentID][$complement]);
+
+        foreach ($remote as $complement => $url) {
+            if (! in_array($complement, $complements, true)) {
+                self::load($url);
             }
 
-            self::$complement()->set('config-url', $url);
-        }   
+            self::$complement()->setOption('config-url', $url);
+        }
     }
 
     /**
      * Complements load request.
      *
-     * @since 1.0.9
-     *
-     * @uses array Complement::getInfo() → get complements info
-     * @uses array Complement::$errors   → complement errors
-     *
-     * @return void
+     * @uses \Eliasis\Complement\Complement::getList()
+     * @uses \Eliasis\Complement\Complement::$errors
      */
-    private static function _complementsLoadRequest() {
+    private static function complementsLoadRequest()
+    {
+        $complements = self::getList(self::$config['filter'], self::$config['sort']);
 
-        $complements = [];
+        $response = [
+            'complements' => array_values($complements),
+            'errors' => self::$errors,
+        ];
 
-        if (isset($_GET['filter'], $_GET['sort'])) {
-
-            $sort   = filter_var($_GET['sort'],   FILTER_SANITIZE_STRING);
-            $filter = filter_var($_GET['filter'], FILTER_SANITIZE_STRING);
-
-            $complements = self::getInfo($filter, $sort);
-        
-        } else {
-
-            $msg = 'The "filter" or "sort" parameter wasn\'t received.';
-
-            self::$errors[] = ['message' => $msg];
-        }
-
-        echo json_encode([
-
-            'complements' => $complements,
-            'errors'      => self::$errors
-        ]);
+        echo json_encode($response);
     }
-                                                          
+
     /**
      * Change state request.
      *
-     * @since 1.0.9
-     *
-     * @uses object Complement::getInstance()      → get complement instance
-     * @uses string ComplementState->changeState() → change complement state
-     * @uses array  Complement::$errors            → complement errors
-     *
-     * @return void
+     * @uses \Eliasis\Complement\Complement::getInstance()
+     * @uses \Eliasis\Complement\Traits\ComplementState->changeState()
+     * @uses \Eliasis\Complement\Complement::$errors
      */
-    private static function _changeStateRequest() {
+    private static function changeStateRequest()
+    {
+        self::$id = self::$config['id'];
+        $that = self::getInstance();
+        $state = $that->changeState();
 
-        $state = false;
+        $response = [
+            'state' => $state,
+            'errors' => self::$errors,
+        ];
 
-        if (isset($_GET['id'])) {
-
-            self::$id = filter_var($_GET['id'], FILTER_SANITIZE_STRING);
-
-            $that = self::getInstance();
-
-            $state = $that->changeState();
-        
-        } else {
-
-            self::$errors[] = [
-
-                'message' => 'The "id" parameter wasn\'t received.'
-            ];
-        }
-
-        echo json_encode([
-
-            'state'   => $state,
-            'errors'  => self::$errors
-        ]);
+        echo json_encode($response);
     }
-                                                                     
+
     /**
      * Install request.
      *
-     * @since 1.0.9
+     * @param string $isUpdate → if it is an update
      *
-     * @uses object Complement::getInstance()   → get complement instance
-     * @uses string ComplementImport->install() → install complement
-     * @uses array  Complement::$errors         → complement errors
-     *
-     * @return void
+     * @uses \Eliasis\Complement\Complement::getInstance()
+     * @uses \Eliasis\Complement\Traits\ComplementImport->install()
+     * @uses \Eliasis\Complement\Complement::$errors
      */
-    private static function _installRequest() {
+    private static function installRequest($isUpdate = false)
+    {
+        self::$id = self::$config['id'];
 
-        $state = false;
+        $that = self::getInstance();
 
-        if (isset($_GET['id'])) {
+        $that->install();
 
-            self::$id = filter_var($_GET['id'], FILTER_SANITIZE_STRING);
+        $that->setState($isUpdate ? 'active' : 'inactive');
 
-            $that = self::getInstance();
+        $complements = self::getList(self::$config['filter'], self::$config['sort']);
 
-            $state = $that->install();
-        
-        } else {
+        $complement = $complements[self::$id];
 
-            self::$errors[] = [
+        $response = [
+            'complement' => $complement,
+            'errors' => self::$errors,
+        ];
 
-                'message' => 'The "id" parameter wasn\'t received.'
-            ];
-        }
-
-        $config = Json::fileToArray($that->complement['config-file']);
-
-        echo json_encode([
-
-            'state'   => $state,
-            'version' => $config['version'],
-            'errors'  => self::$errors
-        ]);
+        echo json_encode($response);
     }
 
     /**
      * Uninstall request.
      *
-     * @since 1.0.9
-     *
-     * @uses object Complement::getInstance()  → get complement instance
-     * @uses string ComplementImport->remove() → remove complement
-     * @uses array Complement::$errors         → complement errors
-     *
-     * @return void
+     * @uses \Eliasis\Complement\Complement::getInstance()
+     * @uses \string ComplementImport->remove()
+     * @uses \Eliasis\Complement\Complement::$errors
      */
-    private static function _uninstallRequest() {
+    private static function uninstallRequest()
+    {
+        self::$id = self::$config['id'];
+        $that = self::getInstance();
+        $that->remove();
+        $state = 'uninstalled';
 
-        $state = false;
+        $response = [
+            'state' => $state,
+            'errors' => self::$errors,
+        ];
 
-        if (isset($_GET['id'])) {
-
-            self::$id = filter_var($_GET['id'], FILTER_SANITIZE_STRING);
-
-            $that = self::getInstance();
-
-            $state = $that->remove();
-        
-        } else {
-
-            self::$errors[] = [
-
-                'message' => 'The "id" parameter wasn\'t received.'
-            ];
-        }
-
-        echo json_encode([
-
-            'state'  => $state,
-            'errors' => self::$errors
-        ]);
+        echo json_encode($response);
     }
 }

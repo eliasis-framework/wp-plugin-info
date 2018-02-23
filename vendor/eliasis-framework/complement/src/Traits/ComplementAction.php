@@ -2,34 +2,29 @@
 /**
  * PHP library for adding addition of complements for Eliasis Framework.
  *
- * @author     Josantonius - hello@josantonius.com
- * @copyright  Copyright (c) 2017
- * @license    https://opensource.org/licenses/MIT - The MIT License (MIT)
- * @link       https://github.com/Eliasis-Framework/Complement
- * @since      1.0.9
+ * @author    Josantonius <hello@josantonius.com>
+ * @copyright 2017 - 2018 (c) Josantonius - Eliasis Complement
+ * @license   https://opensource.org/licenses/MIT - The MIT License (MIT)
+ * @link      https://github.com/Eliasis-Framework/Complement
+ * @since     1.0.9
  */
-
 namespace Eliasis\Complement\Traits;
 
-use Eliasis\App\App,
-    Josantonius\Hook\Hook;
+use Eliasis\Framework\App;
+use Josantonius\Hook\Hook;
 
 /**
  * Complement action handler.
- *
- * @since 1.0.9
  */
-trait ComplementAction { 
-
+trait ComplementAction
+{
     /**
      * Action hooks.
-     *
-     * @since 1.0.9
      *
      * @var array
      */
     protected static $hooks = [
-        'activation', 
+        'activation',
         'deactivation',
         'installation',
         'uninstallation',
@@ -38,38 +33,31 @@ trait ComplementAction {
     /**
      * Default actions.
      *
-     * @since 1.0.9
-     *
      * @var array
      */
     protected static $defaultAction = [
-
-        'component' => 'activation',
-        'plugin'    => 'activation',
-        'module'    => 'activation',
-        'template'  => 'activation',
+        'component' => '',
+        'plugin' => '',
+        'module' => '',
+        'template' => '',
     ];
 
     /**
      * Get complement action.
      *
-     * @since 1.0.9
-     *
      * @param string $state → complement state
      *
-     * @uses array  ComplementState->$states      → complements states
-     * @uses string ComplementHandler::_getType() → complement type
+     * @uses \Eliasis\Complement\ComplementState->$states
+     * @uses \Eliasis\Complement\Traits\ComplementHandler::getType()
      *
-     * @return boolean
+     * @return string → complement action
      */
-    public function getAction($state) {
-
-        $type = self::_getType('strtolower', false);
-
+    public function getAction($state)
+    {
+        $type = self::getType('strtolower', false);
         $action = self::$defaultAction[$type];
 
         if (isset($this->states['action'])) {
-
             $action = $this->states['action'];
         }
 
@@ -79,39 +67,33 @@ trait ComplementAction {
     /**
      * Set complement action.
      *
-     * @since 1.0.9
-     *
      * @param string $action
      *
-     * @uses array ComplementState->$states → complements states
+     * @uses \Eliasis\Complement\Traits\ComplementState->$states
      *
      * @return string → complement action
      */
-    public function setAction($action) {
-
+    public function setAction($action)
+    {
         return $this->states['action'] = $action;
     }
 
     /**
      * Execute action hook.
      *
-     * @since 1.0.9
-     *
      * @param string $action → action hook to execute
      *
-     * @uses object Complement::getInstance()     → Complement instance
-     * @uses string ComplementAction::setAction() → set complement action
+     * @uses \Eliasis\Complement\Traits\ComplementAction::setAction()
+     * @uses \Eliasis\Complement\Traits\ComplementHandler::getOption()
      *
-     * @return boolean
+     * @return bool
      */
-    public function doAction($action) {
-
-        $controller = $this->get('hooks-controller');
-
-        $instance = $this->instance($controller, 'controller');
+    public function doAction($action)
+    {
+        $controller = $this->getOption('hooks-controller');
+        $instance = $this->getControllerInstance($controller);
 
         if (is_object($instance) && method_exists($instance, $action)) {
-
             $response = call_user_func([$instance, $action]);
         }
 
@@ -123,21 +105,16 @@ trait ComplementAction {
     /**
      * Add complement action hooks.
      *
-     * @since 1.0.9
-     *
-     * @uses string App::$id                → application ID
-     * @uses array  Complement->$complement → complement settings
-     * @uses object Hook::getInstance       → get Hook instance
-     * @uses mixed  Hook::addActions        → add complement action hooks
-     *
-     * @return void
+     * @uses \Eliasis\Framework\App::getCurrentID()
+     * @uses \Eliasis\Complement\Complement->$complement
+     * @uses \Josantonius\Hook\Hook::getInstance
+     * @uses \Josantonius\Hook\Hook::addActions
      */
-    private function _addActions() {
-
+    private function addActions()
+    {
         if (isset($this->complement['hooks'])) {
+            Hook::getInstance(App::getCurrentID());
 
-            Hook::getInstance(App::$id);
-                
             return Hook::addActions($this->complement['hooks']);
         }
 
@@ -147,27 +124,21 @@ trait ComplementAction {
     /**
      * Execute action hooks.
      *
-     * @since 1.0.9
-     *
      * @param string $action → action hook to execute
      *
-     * @uses string App::$id                      → application ID
-     * @uses object Hook::getInstance             → get Hook instance
-     * @uses mixed  Hook::doAction                → run hooks
-     * @uses string ComplementHandler::_getType() → complement type
-     *
-     * @return void
+     * @uses \Eliasis\Framework\App::getCurrentID()
+     * @uses \Josantonius\Hook\Hook::getInstance
+     * @uses \Josantonius\Hook\Hook::doAction
+     * @uses \Eliasis\Complement\Traits\ComplementHandler::getType()
      */
-    private function _doActions($action) {
+    private function doActions($action)
+    {
+        $type = self::getType('strtolower', false);
 
-        $type = self::_getType('strtolower', false);
-
-        Hook::getInstance(App::$id);
-
+        Hook::getInstance(App::getCurrentID());
         Hook::doAction($type . '-load');
 
-        if (in_array($action, self::$hooks)) {
-
+        if (in_array($action, self::$hooks, true)) {
             $this->doAction($action);
         }
     }

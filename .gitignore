@@ -1,6 +1,8 @@
 phpunit.xml
 composer.phar
 composer.lock
+vendor/
+data/*.jsond
 composer-test.lock
 build/artifacts/
 artifacts/
@@ -16,3 +18,5 @@ search-inside.zip
 .svn-prop.tmp.swp
 svn-prop.tmp
 versions/
+.php_cs.cache
+grumphp.yml

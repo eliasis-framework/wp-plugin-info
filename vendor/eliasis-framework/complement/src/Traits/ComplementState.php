@@ -2,30 +2,25 @@
 /**
  * PHP library for adding addition of complements for Eliasis Framework.
  *
- * @author     Josantonius - hello@josantonius.com
- * @copyright  Copyright (c) 2017
- * @license    https://opensource.org/licenses/MIT - The MIT License (MIT)
- * @link       https://github.com/Eliasis-Framework/Complement
- * @since      1.0.9
+ * @author    Josantonius <hello@josantonius.com>
+ * @copyright 2017 - 2018 (c) Josantonius - Eliasis Complement
+ * @license   https://opensource.org/licenses/MIT - The MIT License (MIT)
+ * @link      https://github.com/Eliasis-Framework/Complement
+ * @since     1.0.9
  */
-
 namespace Eliasis\Complement\Traits;
 
-use Eliasis\App\App,
-    Josantonius\Hook\Hook,
-    Josantonius\Json\Json;
+use Eliasis\Framework\App;
+use Josantonius\Hook\Hook;
+use Josantonius\Json\Json;
 
 /**
  * Complement states handler.
- *
- * @since 1.0.9
  */
-trait ComplementState {
-
+trait ComplementState
+{
     /**
      * List of complements (status indicators).
-     *
-     * @since 1.0.9
      *
      * @var array
      */
@@ -34,72 +29,63 @@ trait ComplementState {
     /**
      * States/actions that will be executed when a complement changes state.
      *
-     * @since 1.0.9
-     *
      * @var array
      */
     protected static $statesHandler = [
         'active' => [
             'action' => 'deactivation',
-            'state'  => 'inactive'
+            'state' => 'inactive'
         ],
         'inactive' => [
             'action' => 'activation',
-            'state'  => 'active'
+            'state' => 'active'
         ],
         'uninstall' => [
             'action' => 'uninstallation',
-            'state'  => 'uninstalled'
+            'state' => 'uninstalled'
         ],
         'uninstalled' => [
             'action' => '',
-            'state'  => 'installed'
+            'state' => 'installed'
         ],
         'installed' => [
             'action' => 'installation',
-            'state'  => 'inactive'
+            'state' => 'inactive'
         ],
         'outdated' => [
             'action' => 'installation',
-            'state'  => 'updated'
+            'state' => 'updated'
         ],
         'updated' => [
             'action' => 'activation',
-            'state'  => 'active'
+            'state' => 'active'
         ],
     ];
 
     /**
      * Default states.
      *
-     * @since 1.0.9
-     *
      * @var array
      */
     protected static $defaultStates = [
-
-        'component' => 'active',
-        'plugin'    => 'active',
-        'module'    => 'active',
-        'template'  => 'active',
+        'component' => 'inactive',
+        'plugin' => 'inactive',
+        'module' => 'inactive',
+        'template' => 'inactive',
     ];
 
     /**
      * Set complement state.
      *
-     * @since 1.0.9
-     *
      * @param string $state → complement state
      *
      * @return string → state
      */
-    public function setState($state) {
-
+    public function setState($state)
+    {
         $this->complement['state'] = $state;
-
         $this->states['state'] = $state;
-
-        $this->_setStates();
+        $this->setStates();
 
         return $state;
     }
@@ -107,23 +93,19 @@ trait ComplementState {
     /**
      * Change complement state.
      *
-     * @since 1.0.9
-     *
-     * @uses void ComplementAction::doAction() → execute action hooks
+     * @uses \Eliasis\Complement\Traits\ComplementAction::doAction()
      *
      * @return string → new state
      */
-    public function changeState() {
-
+    public function changeState()
+    {
         $this->getStates();
 
         $actualState = $this->getState();
-
         $newState = self::$statesHandler[$actualState]['state'];
-        $action   = self::$statesHandler[$actualState]['action'];
+        $action = self::$statesHandler[$actualState]['action'];
 
         $this->setState($newState);
-
         $this->doAction($action);
 
         return $newState;
@@ -132,25 +114,20 @@ trait ComplementState {
     /**
      * Get complement state.
      *
-     * @since 1.0.9
-     *
-     * @uses string App::complements()            → default state complement
-     * @uses string ComplementHandler::_getType() → complement type
+     * @uses \Eliasis\Framework\App::complements()
+     * @uses \Eliasis\Complement\Traits\ComplementHandler::getType()
      *
      * @return string → complement state
      */
-    public function getState() {
-
+    public function getState()
+    {
         if (isset($this->states['state'])) {
-
             return $this->states['state'];
-        
-        } else if (isset($this->complement['state'])) {
-
+        } elseif (isset($this->complement['state'])) {
             return $this->complement['state'];
         }
 
-        $type = self::_getType();
+        $type = self::getType();
 
         return self::$defaultStates[$type];
     }
@@ -158,20 +135,19 @@ trait ComplementState {
     /**
      * Get complements states.
      *
-     * @since 1.0.9
-     *
-     * @uses string App::$id        → application ID
-     * @uses string Complement::$id → complement ID
+     * @uses \Eliasis\Framework\App::getCurrentID()
+     * @uses \Eliasis\Complement\Complement::getCurrentID()
      *
      * @return array → complements states
      */
-    public function getStates() {
+    public function getStates()
+    {
+        $appID = App::getCurrentID();
+        $complementID = self::getCurrentID();
+        $states = $this->getStatesFromFile();
 
-        $states = $this->_getStatesFromFile();
-
-        if (isset($states[App::$id][self::$id])) {
-
-            return $this->states = $states[App::$id][self::$id];
+        if (isset($states[$appID][$complementID])) {
+            return $this->states = $states[$appID][$complementID];
         }
 
         return $this->states = [];
@@ -180,30 +156,24 @@ trait ComplementState {
     /**
      * Set complements states.
      *
-     * @since 1.0.9
-     *
-     * @uses string   App::$id            → application ID
-     * @uses string   Complement::$id     → complement ID
-     * @uses array    Json::arrayToFile() → convert array to json file
-     * @uses callable Hook::doAction()    → do action
-     *
-     * @return void
+     * @uses \Eliasis\Framework\App::getCurrentID()
+     * @uses \Eliasis\Complement\Complement::getCurrentID()
+     * @uses \Josantonius\Json\Json::arrayToFile()
+     * @uses \Josantonius\Hook\Hook::doAction()
      */
-    private function _setStates() {
+    private function setStates()
+    {
+        $appID = App::getCurrentID();
+        $complementID = self::getCurrentID();
 
-        if (!is_null($this->states)) {
+        if (! is_null($this->states)) {
+            $states = $this->getStatesFromFile();
 
-            $states = $this->_getStatesFromFile();
-
-            if ($this->_stateChanged($states)) {
-
-                $file = $this->_getStatesFilePath();
-
-                $states[App::$id][self::$id] = $this->states;
-
+            if ($this->stateChanged($states)) {
+                $file = $this->getStatesFilePath();
+                $states[$appID][$complementID] = $this->states;
                 Json::arrayToFile($states, $file);
-
-                Hook::doAction('Eliasis/Complement/after_set_states',$states);
+                Hook::doAction('Eliasis/Complement/after_set_states', $states);
             }
         }
     }
@@ -211,23 +181,22 @@ trait ComplementState {
     /**
      * Check if complement state has changed.
      *
-     * @since 1.0.9
-     *
      * @param string $states → complement states
      *
-     * @uses string App::$id        → application ID
-     * @uses string Complement::$id → complement ID
+     * @uses \Eliasis\Framework\App::getCurrentID()
+     * @uses \Eliasis\Complement\Complement::getCurrentID()
      *
-     * @return boolean
+     * @return bool
      */
-    private function _stateChanged($states) {
+    private function stateChanged($states)
+    {
+        $appID = App::getCurrentID();
+        $complementID = self::getCurrentID();
 
-        if (isset($states[App::$id][self::$id])) {
+        if (isset($states[$appID][$complementID])) {
+            $actualStates = $states[$appID][$complementID];
 
-            $actualStates = $states[App::$id][self::$id];
-
-            if (!count(array_diff_assoc($actualStates, $this->states))) {
-
+            if (! count(array_diff_assoc($actualStates, $this->states))) {
                 return false;
             }
         }
@@ -238,32 +207,27 @@ trait ComplementState {
     /**
      * Get states from json file.
      *
-     * @since 1.0.9
-     *
-     * @uses array Json::fileToArray() → convert json file to array
+     * @uses \Josantonius\Json\Json::fileToArray()
      *
      * @return array → complements states
      */
-    private function _getStatesFromFile() {
-
-        return Json::fileToArray($this->_getStatesFilePath());
+    private function getStatesFromFile()
+    {
+        return Json::fileToArray($this->getStatesFilePath());
     }
 
     /**
      * Get complements file path.
      *
-     * @since 1.0.9
-     *
-     * @uses string App::COMPLEMENT()             → complement path
-     * @uses string ComplementHandler::_getType() → complement type
+     * @uses \Eliasis\Framework\App::COMPLEMENT()
+     * @uses \Eliasis\Complement\Traits\ComplementHandler::getType()
      *
      * @return string → complements file path
      */
-    private function _getStatesFilePath() {
-
-        $type = self::_getType();
-
-        $complementType = self::_getType('strtoupper');
+    private function getStatesFilePath()
+    {
+        $type = self::getType();
+        $complementType = self::getType('strtoupper');
 
         return App::$complementType() . '.' . $type . '-states.jsond';
     }

@@ -2,41 +2,32 @@
 /**
  * PHP library for adding addition of complements for Eliasis Framework.
  *
- * @author     Josantonius - hello@josantonius.com
- * @copyright  Copyright (c) 2017
- * @license    https://opensource.org/licenses/MIT - The MIT License (MIT)
- * @link       https://github.com/Eliasis-Framework/Complement
- * @since      1.0.0
+ * @author    Josantonius <hello@josantonius.com>
+ * @copyright 2017 - 2018 (c) Josantonius - Eliasis Complement
+ * @license   https://opensource.org/licenses/MIT - The MIT License (MIT)
+ * @link      https://github.com/Eliasis-Framework/Complement
+ * @since     1.0.9
  */
-
 namespace Eliasis\Complement\Exception;
 
 /**
  * Exception class.
  *
- * @since 1.0.0
- *
  * You can use an exception and error handler with this library.
  *
  * @link https://github.com/Josantonius/PHP-ErrorHandler
- *
- * @return void
  */
-class ComplementException extends \Exception { 
-
+class ComplementException extends \Exception
+{
     /**
      * Exception handler.
      *
-     * @since 1.0.0
-     *
      * @param string $msg    → message error (Optional)
-     * @param int    $error  → error code (Optional)
      * @param int    $status → HTTP response status code (Optional)
      */
-    public function __construct($msg = '', $error = 0, $status = 0) {
-
-        $this->message    = $msg;
-        $this->code       = $error;
+    public function __construct($msg = '', $status = 0)
+    {
+        $this->message = $msg;
         $this->statusCode = $status;
     }
 }
