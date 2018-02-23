@@ -1,5 +1,5 @@
 {
-    "name":        "josantonius/wp-plugin-info",
+    "name":        "Eliasis-Framework/wp-plugin-info",
     "description": "Get and save plugin information from WordPress API to be consumed by other modules.",
     "type": "eliasis-plugin",
     "keywords": [
@@ -26,9 +26,9 @@
     },
     "minimum-stability": "dev",
     "support": {
-        "issues": "https://github.com/Josantonius/wp-plugin-info/issues",
+        "issues": "https://github.com/Eliasis-Framework/wp-plugin-info/issues",
         "forum":  "http://stackoverflow.com/tags/wp-plugin-info",
-        "source": "https://github.com/Josantonius/wp-plugin-info"
+        "source": "https://github.com/Eliasis-Framework/wp-plugin-info"
     },
     "require": {
         "php": "^5.6 || ^7.0",
