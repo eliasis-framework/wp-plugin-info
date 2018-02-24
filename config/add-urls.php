@@ -13,7 +13,7 @@
 use Eliasis\Complement\Type\Plugin;
 use Eliasis\Framework\App;
 
-$url = App::MODULES_URL() . Plugin::WP_Plugin_Info()->getOption( 'folder' );
+$url = App::PLUGINS_URL() . Plugin::WP_Plugin_Info()->getOption( 'folder' );
 
 return [
 	'url' => [

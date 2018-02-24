@@ -7,7 +7,7 @@
       "es": "Obtener y guardar información de plugin alojados en el repositorio de WordPress a través de su API"
    },
    "state": "active",
-   "category": "wp-plugin-complement",
+   "category": "eliasis-wp-plugin",
    "url": "https://github.com/eliasis-framework/wp-plugin-info.git",
    "author": "Josantonius",
    "author-url": "https://josantonius.com/",
