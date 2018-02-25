@@ -23,11 +23,11 @@ Get and save plugin information from WordPress API to be consumed by other modul
 
 ## Requirements
 
-This library is supported by **PHP versions 5.6** or higher and is compatible with **HHVM versions 3.0** or higher.
+This plugin is supported by **PHP versions 5.6** or higher and is compatible with **HHVM versions 3.0** or higher.
 
 ## Installation
 
-The preferred way to install this extension is through [Composer](http://getcomposer.org/download/).
+The preferred way to install this plugin is through [Composer](http://getcomposer.org/download/).
 
 To install **WP Plugin Info**, simply:
 
@@ -43,7 +43,7 @@ You can also **clone the complete repository** with Git:
 
 ## Available Methods
 
-Available methods in this library:
+Available methods in this plugin:
 
 ### - Get plugin information:
 
@@ -60,7 +60,7 @@ get($option, $slug);
 
 ## Quick Start
 
-To use this library with **Composer**:
+To use this plugin with **Composer**:
 
 ```php
 use Eliasis\Complement\Type\Plugin;
