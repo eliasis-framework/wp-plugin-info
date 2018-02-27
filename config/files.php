@@ -16,7 +16,7 @@ $path = Plugin::WP_Plugin_Info()->getOption( 'path', 'data' );
 
 return [
 	'file' => [
-		'config'  => $path . 'config.jsond',
-		'plugins' => $path . 'plugins.jsond',
+		'config'  => $path . 'config.json',
+		'plugins' => $path . 'plugins.json',
 	],
 ];

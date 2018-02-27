@@ -53,6 +53,6 @@ File::copyDirRecursively(
 );
 
 copy(
-	__DIR__ . "/../$plugin.jsond",
-	__DIR__ . "/$path/$plugin/$plugin.jsond"
+	__DIR__ . "/../$plugin.json",
+	__DIR__ . "/$path/$plugin/$plugin.json"
 );
