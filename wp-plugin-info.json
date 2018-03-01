@@ -16,7 +16,7 @@
    "url-import": "https://raw.githubusercontent.com/eliasis-framework/wp-plugin-info/master/",
    "installation-files": {
       "wp-plugin-info": {
-         "0": "wp-plugin-info.jsond",
+         "0": "wp-plugin-info.json",
          "1": "LICENSE",
          "2": "composer.json",
          "config": [
