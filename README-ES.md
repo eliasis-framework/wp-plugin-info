@@ -1,6 +1,7 @@
 # WP Plugin Info · Eliasis plugin
 
-[![Latest Stable Version](https://poser.pugx.org/eliasis-framework/wp-plugin-info/v/stable)](https://packagist.org/packages/eliasis-framework/wp-plugin-info) [![Latest Unstable Version](https://poser.pugx.org/eliasis-framework/wp-plugin-info/v/unstable)](https://packagist.org/packages/eliasis-framework/wp-plugin-info) [![License](https://poser.pugx.org/eliasis-framework/wp-plugin-info/license)](LICENSE) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ae2eaedeb5754994824cb23a691a0b65)](https://www.codacy.com/app/Josantonius/wp-plugin-info?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=eliasis-framework/wp-plugin-info&amp;utm_campaign=Badge_Grade) [![Total Downloads](https://poser.pugx.org/eliasis-framework/wp-plugin-info/downloads)](https://packagist.org/packages/eliasis-framework/wp-plugin-info) [![Travis](https://travis-ci.org/eliasis-framework/wp-plugin-info.svg)](https://travis-ci.org/eliasis-framework/wp-plugin-info) [![WP](https://img.shields.io/badge/WordPress-Standar-1abc9c.svg)](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/) [![CodeCov](https://codecov.io/gh/eliasis-framework/wp-plugin-info/branch/master/graph/badge.svg)](https://codecov.io/gh/eliasis-framework/wp-plugin-info)
+[![Latest Stable Version](https://poser.pugx.org/eliasis-framework/wp-plugin-info/v/stable)](https://packagist.org/packages/eliasis-framework/wp-plugin-info)
+[![License](https://poser.pugx.org/eliasis-framework/wp-plugin-info/license)](LICENSE)
 
 [Versión en español](README-ES.md)
 
@@ -14,37 +15,36 @@ Obtener y guardar información de plugins a través de la API de WordPress para 
 - [Cómo empezar](#cómo-empezar)
 - [Uso](#uso)
 - [Tests](#tests)
-- [Tareas pendientes](#-tareas-pendientes)
-- [Contribuir](#contribuir)
+- [Patrocinar](#patrocinar)
 - [Licencia](#licencia)
-- [Copyright](#copyright)
+
 ---
 
 ## Requisitos
 
 Este plugin es soportado por versiones de **PHP 5.6** o superiores y es compatible con versiones de **HHVM 3.0** o superiores.
 
-## Instalación 
+## Instalación
 
 La mejor forma de instalar este plugin es a través de [Composer](http://getcomposer.org/download/).
 
 Para instalar **WP Plugin Info**, simplemente escribe:
 
-    $ composer require eliasis-framework/wp-plugin-info
+    composer require eliasis-framework/wp-plugin-info
 
 El comando anterior sólo instalará los archivos necesarios, si prefieres **descargar todo el código fuente** puedes utilizar:
 
-    $ composer require eliasis-framework/wp-plugin-info --prefer-source
+    composer require eliasis-framework/wp-plugin-info --prefer-source
 
 También puedes **clonar el repositorio** completo con Git:
 
-    $ git clone https://github.com/eliasis-framework/wp-plugin-info.git
+    git clone https://github.com/eliasis-framework/wp-plugin-info.git
 
 ## Métodos disponibles
 
 Métodos disponibles en este plugin:
 
-### - Obtener información del plugin:
+### - Obtener información del plugin
 
 ```php
 get($option, $slug);
@@ -69,7 +69,7 @@ $wp_plugin_info = Plugin::WP_Plugin_Info()->getControllerInstance('Main');
 
 ## Uso
 
-### - Obtener nombre del plugin:
+### - Obtener nombre del plugin
 
 ```php
 # [string]
@@ -77,7 +77,7 @@ $wp_plugin_info = Plugin::WP_Plugin_Info()->getControllerInstance('Main');
 $wp_plugin_info->get('name', 'plugin-slug'); 
 ```
 
-### - Obtener version del plugin:
+### - Obtener version del plugin
 
 ```php
 # [string]
@@ -85,7 +85,7 @@ $wp_plugin_info->get('name', 'plugin-slug');
 $wp_plugin_info->get('version', 'plugin-slug');
 ```
 
-### - Obtener autor del plugin:
+### - Obtener autor del plugin
 
 ```php
 # [string]
@@ -93,7 +93,7 @@ $wp_plugin_info->get('version', 'plugin-slug');
 $author = $wp_plugin_info->get('author', 'plugin-slug');
 ```
 
-### - Obtener perfil del autor del plugin:
+### - Obtener perfil del autor del plugin
 
 ```php
 # [string]
@@ -101,7 +101,7 @@ $author = $wp_plugin_info->get('author', 'plugin-slug');
 $wp_plugin_info->get('author_profile', 'plugin-slug');
 ```
 
-### - Obtener contribuyentes del plugin:
+### - Obtener contribuyentes del plugin
 
 ```php
 # [array]
@@ -109,7 +109,7 @@ $wp_plugin_info->get('author_profile', 'plugin-slug');
 $wp_plugin_info->get('contributors', 'plugin-slug');
 ```
 
-### - Obtener requisitos del plugin:
+### - Obtener requisitos del plugin
 
 ```php
 # [string]
@@ -117,7 +117,7 @@ $wp_plugin_info->get('contributors', 'plugin-slug');
 $wp_plugin_info->get('requires', 'plugin-slug');
 ```
 
-### - Obtener última version comprobada del plugin:
+### - Obtener última version comprobada del plugin
 
 ```php
 # [string]
@@ -125,7 +125,7 @@ $wp_plugin_info->get('requires', 'plugin-slug');
 $wp_plugin_info->get('tested', 'plugin-slug');
 ```
 
-### - Obtener compatibilidad del plugin:
+### - Obtener compatibilidad del plugin
 
 ```php
 # [array]
@@ -133,7 +133,7 @@ $wp_plugin_info->get('tested', 'plugin-slug');
 $wp_plugin_info->get('compatibility', 'plugin-slug');
 ```
 
-### - Obtener calificación del plugin:
+### - Obtener calificación del plugin
 
 ```php
 # [int]
@@ -141,7 +141,7 @@ $wp_plugin_info->get('compatibility', 'plugin-slug');
 $wp_plugin_info->get('rating', 'plugin-slug');
 ```
 
-### - Obtener calificaciones del plugin:
+### - Obtener calificaciones del plugin
 
 ```php
 # [array]
@@ -149,7 +149,7 @@ $wp_plugin_info->get('rating', 'plugin-slug');
 $wp_plugin_info->get('ratings', 'plugin-slug');
 ```
 
-### - Obtener calificaciones numéricas del plugin:
+### - Obtener calificaciones numéricas del plugin
 
 ```php
 # [int]
@@ -157,7 +157,7 @@ $wp_plugin_info->get('ratings', 'plugin-slug');
 $wp_plugin_info->get('num_ratings', 'plugin-slug');
 ```
 
-### - Obtener hilos de soporte abiertos del plugin:
+### - Obtener hilos de soporte abiertos del plugin
 
 ```php
 # [int]
@@ -165,7 +165,7 @@ $wp_plugin_info->get('num_ratings', 'plugin-slug');
 $wp_plugin_info->get('support_threads', 'plugin-slug');
 ```
 
-### - Obtener hilos de soporte resueltos del plugin:
+### - Obtener hilos de soporte resueltos del plugin
 
 ```php
 # [int]
@@ -173,7 +173,7 @@ $wp_plugin_info->get('support_threads', 'plugin-slug');
 $wp_plugin_info->get('support_threads_resolved', 'plugin-slug');
 ```
 
-### - Obtener número de descargas del plugin:
+### - Obtener número de descargas del plugin
 
 ```php
 # [int]
@@ -181,7 +181,7 @@ $wp_plugin_info->get('support_threads_resolved', 'plugin-slug');
 $wp_plugin_info->get('downloaded', 'plugin-slug');
 ```
 
-### - Obtener fecha de última actualización del plugin:
+### - Obtener fecha de última actualización del plugin
 
 ```php
 # [string]
@@ -189,7 +189,7 @@ $wp_plugin_info->get('downloaded', 'plugin-slug');
 $wp_plugin_info->get('last_updated', 'plugin-slug');
 ```
 
-### - Obtener fecha en la que fue agregado el plugin:
+### - Obtener fecha en la que fue agregado el plugin
 
 ```php
 # [string]
@@ -197,7 +197,7 @@ $wp_plugin_info->get('last_updated', 'plugin-slug');
 $wp_plugin_info->get('added', 'plugin-slug');
 ```
 
-### - Obtener página principal del plugin:
+### - Obtener página principal del plugin
 
 ```php
 # [string]
@@ -205,7 +205,7 @@ $wp_plugin_info->get('added', 'plugin-slug');
 $wp_plugin_info->get('homepage', 'plugin-slug');
 ```
 
-### - Obtener enlace de descarga del plugin:
+### - Obtener enlace de descarga del plugin
 
 ```php
 # [string]
@@ -213,7 +213,7 @@ $wp_plugin_info->get('homepage', 'plugin-slug');
 $wp_plugin_info->get('download_link', 'plugin-slug');
 ```
 
-### - Obtener etiquetas del plugin:
+### - Obtener etiquetas del plugin
 
 ```php
 # [array]
@@ -221,7 +221,7 @@ $wp_plugin_info->get('download_link', 'plugin-slug');
 $wp_plugin_info->get('tags', 'plugin-slug');
 ```
 
-### - Obtener enlace de donación del plugin:
+### - Obtener enlace de donación del plugin
 
 ```php
 # [string]
@@ -229,31 +229,31 @@ $wp_plugin_info->get('tags', 'plugin-slug');
 $wp_plugin_info->get('donate_link', 'plugin-slug');
 ```
 
-## Tests 
+## Tests
 
 Para ejecutar las [pruebas](tests) necesitarás [Composer](http://getcomposer.org/download/) y seguir los siguientes pasos:
 
-    $ git clone https://github.com/eliasis-framework/wp-plugin-info.git
+    git clone https://github.com/eliasis-framework/wp-plugin-info.git
     
-    $ cd wp-plugin-info
+    cd wp-plugin-info
 
-    $ composer install
+    composer install
 
 Ejecutar pruebas unitarias con [PHPUnit](https://phpunit.de/):
 
-    $ composer phpunit
+    composer phpunit
 
 Ejecutar pruebas de estándares de código para [WordPress](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/) con [PHPCS](https://github.com/squizlabs/PHP_CodeSniffer):
 
-    $ composer phpcs
+    composer phpcs
 
 Ejecutar pruebas con [PHP Mess Detector](https://phpmd.org/) para detectar inconsistencias en el estilo de codificación:
 
-    $ composer phpmd
+    composer phpmd
 
 Ejecutar todas las pruebas anteriores:
 
-    $ composer tests
+    composer tests
 
 ## ☑ Tareas pendientes
 
@@ -269,12 +269,12 @@ Si deseas colaborar, puedes echar un vistazo a la lista de
 
 **Pull requests**
 
-* [Fork and clone](https://help.github.com/articles/fork-a-repo).
-* Ejecuta el comando `composer install` para instalar dependencias.
+- [Fork and clone](https://help.github.com/articles/fork-a-repo).
+- Ejecuta el comando `composer install` para instalar dependencias.
   Esto también instalará las [dependencias de desarrollo](https://getcomposer.org/doc/03-cli.md#install).
-* Ejecuta el comando `composer fix` para estandarizar el código.
-* Ejecuta las [pruebas](#tests).
-* Crea una nueva rama (**branch**), **commit**, **push** y envíame un
+- Ejecuta el comando `composer fix` para estandarizar el código.
+- Ejecuta las [pruebas](#tests).
+- Crea una nueva rama (**branch**), **commit**, **push** y envíame un
   [pull request](https://help.github.com/articles/using-pull-requests).
 
 ## Licencia
@@ -288,3 +288,15 @@ Este proyecto está licenciado bajo **licencia MIT**. Consulta el archivo [LICEN
 Si te ha resultado útil, házmelo saber :wink:
 
 Puedes contactarme en [Twitter](https://twitter.com/Josantonius) o a través de mi [correo electrónico](mailto:hello@josantonius.com).
+
+## Patrocinar
+
+Si este proyecto te ayuda a reducir el tiempo de desarrollo,
+[puedes patrocinarme](https://github.com/josantonius/lang/es-ES/README.md#patrocinar)
+para apoyar mi trabajo :blush:
+
+## Licencia
+
+Este repositorio tiene una licencia [MIT License](LICENSE).
+
+Copyright © 2017-2022, [Josantonius](https://github.com/josantonius/lang/es-ES/README.md#contacto)

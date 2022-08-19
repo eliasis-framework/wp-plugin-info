@@ -26,6 +26,11 @@
             "namespaces.php",
             "settings.php"
          ],
+         "public": {
+            "images": [
+               "wp-plugin-info.png"
+            ]
+         },
          "src": {
             "controller": [
                "class-main.php"

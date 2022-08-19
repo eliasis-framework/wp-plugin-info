@@ -12,11 +12,11 @@
    "author": "Josantonius",
    "author-url": "https://josantonius.com/",
    "license": "MIT",
-   "hooks-controller": "Launcher",
+   "hooks-controller": "Main",
    "url-import": "https://raw.githubusercontent.com/eliasis-framework/wp-plugin-info/master/",
    "installation-files": {
       "wp-plugin-info": {
-         "0": "wp-plugin-info.jsond",
+         "0": "wp-plugin-info.json",
          "1": "LICENSE",
          "2": "composer.json",
          "config": [
@@ -26,16 +26,21 @@
             "namespaces.php",
             "settings.php"
          ],
+         "public": {
+            "images": [
+               "wp-plugin-info.png"
+            ]
+         },
          "src": {
-            "controller": {
-               "0": "class-main.php"
-            },
-            "model": {
-               "0": "class-main.php"
-            },
-            "data": {
-               "0": "plugins.jsond"
-            }
+            "controller": [
+               "class-main.php"
+            ],
+            "model": [
+               "class-main.php"
+            ],
+            "data": [
+               "plugins.json"
+            ]
          }
       }
    }

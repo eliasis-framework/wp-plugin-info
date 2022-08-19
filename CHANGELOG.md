@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2022-08-19
+
+* The repository was archived.
+
 ## 1.0.4 - 2018-02-22
 
 * Implemented `PHP Mess Detector` to detect inconsistencies in code styles.
